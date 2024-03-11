@@ -1,0 +1,18 @@
+disk:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: web_disk
+    username: root
+    password: qaz135790
+  redis:
+    host: localhost
+    port: 6379
+    password: qaz135790
+    database: 1
+  alioss:
+    access-key-id: LTAI5tDLc9yYKfrJjUkWBeb1
+    access-key-secret: cKZsx0wKPXVdK4QWbwPhla4CptnMe5
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucket-name: aivk-net-disk

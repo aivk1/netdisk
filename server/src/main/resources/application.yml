@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+
+    driver-class-name: ${disk.datasource.driver-class-name}
+    url: jdbc:mysql://${disk.datasource.host}:${disk.datasource.port}/${disk.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${disk.datasource.username}
+    password: ${disk.datasource.password}
+  redis:
+    host: ${disk.redis.host}
+    port: ${disk.redis.port}
+    password: ${disk.redis.password}
+    database: ${disk.redis.database}
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sky.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+
+disk:
+  jwt:
+    admin-secret-key: diskAdmin
+    adin-ttl: 86400000
+    admin-token-name: token
+    user-secret-key: diskUser
+    user-ttl: 86400000
+    user-token-name: authentication
+  alioss:
+    access-key-id: ${disk.alioss.access-key-id}
+    access-key-secret: ${disk.alioss.access-key-secret}
+    endpoint: ${disk.alioss.endpoint}
+    bucket-name: ${disk.alioss.bucket-name}

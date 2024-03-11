@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.disk.mapper.UserMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username, password, phone, email, sex, status, create_time, update_time, create_user, update_user)
+        values(
+               #{userName},
+               #{password},
+               #{phone},
+               #{email},
+               #{sex},
+               #{status},
+               #{createTime},
+               #{updateTime},
+               #{createUser},
+               #{updateUser}
+              )
+    </insert>
+    <update id="update">
+        update user
+        <set>
+            <if test="userName!=null"> username = #{userName},</if>
+            <if test="password!=null"> password = #{password},</if>
+            <if test="phone!=null"> phone = #{phone},</if>
+            <if test="email!=null"> email = #{email},</if>
+            <if test="sex!=null"> sex = #{sex},</if>
+            <if test="updateTime!=null"> update_time = #{updateTime},</if>
+            <if test="updateUser!=null"> update_user = #{updateUser},</if>
+        </set>
+            where id = #{id}
+    </update>
+</mapper>
