@@ -17,5 +17,7 @@ public interface UserMapper {
     void save(User user);
     @AutoFill(OperationType.UPDATE)
     void update(User user);
+    @Select("select * from user where id = #{id}")
+    User findById(Long id);
 }
 

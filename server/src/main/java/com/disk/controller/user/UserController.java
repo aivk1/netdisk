@@ -3,9 +3,13 @@ package com.disk.controller.user;
 import com.disk.constant.JwtClaimsConstant;
 import com.disk.dto.UserDTO;
 import com.disk.dto.UserLoginDTO;
+import com.disk.dto.UserUpdateDTO;
+import com.disk.entity.FileMessage;
 import com.disk.entity.User;
+import com.disk.mapper.FileMapper;
 import com.disk.properties.JwtProperties;
 import com.disk.result.Result;
+import com.disk.service.FileService;
 import com.disk.service.UserService;
 import com.disk.utils.JwtUtil;
 import com.disk.vo.UserVO;
@@ -28,7 +32,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private FileService fileService;
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -58,10 +63,12 @@ public class UserController {
                 jwtProperties.getUserSecretKey(),
                 jwtProperties.getUserTtl(),
                 claims);
+        FileMessage fileMessage = fileService.selectByUserIdAndUploadTime(user.getId());
         UserVO userVO = UserVO.builder()
                 .userName(user.getUserName())
                 .id(user.getId())
                 .token(token)
+                .userFolderId(fileMessage!=null?fileMessage.getUserId():-1)
                 .build();
         return Result.success(userVO);
 
@@ -80,13 +87,15 @@ public class UserController {
 
     /**
      * 修改用户信息接口
-     * @param userDTO
+     * @param userUpdateDTO
      * @return
      */
     @PutMapping
-    public Result update(@RequestBody UserDTO userDTO){
-        userService.update(userDTO);
+    public Result update(@RequestBody UserUpdateDTO userUpdateDTO){
+        userService.update(userUpdateDTO);
         return Result.success();
     }
+
+
 
 }

@@ -17,6 +17,17 @@ spring:
     port: ${disk.redis.port}
     password: ${disk.redis.password}
     database: ${disk.redis.database}
+  mail:
+    host: ${disk.mail.host}
+    port: ${disk.mail.port}
+    username: ${disk.mail.username}
+    password: ${disk.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: ${disk.mail.properties.mail.smtp.auth}
+          starttls:
+            enable: ${disk.mail.properties.mail.smtp.starttls.enable}
 
 mybatis:
   #mapper配置文件

@@ -3,12 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.disk.mapper.FileMapper">
     <insert id="insert">
-        insert into file_message(user_id, file_path, file_name, upload_time, file_size)
+        insert into file_message(user_id, url, file_path, file_name, file_path_id, upload_time, file_size, file_type)
         values(#{userId},
+               #{url},
                #{filePath},
                #{fileName},
+               #{filePathId},
                #{uploadTime},
-               #{fileSize})
+               #{fileSize},
+               #{fileType})
     </insert>
     <delete id="deleteByIds">
         delete from file_message where id in
@@ -18,9 +21,32 @@
     </delete>
     <select id="selectByIds" resultType="com.disk.entity.FileMessage">
         select * from file_message where id in
-        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </select>
-
+    <select id="selectFolderContentById" resultType="com.disk.entity.FileMessage">
+        select * from file_message where file_path_id = #{folderId}
+    </select>
+    <select id="selectByUserIdAndUploadTime" resultType="com.disk.entity.FileMessage">
+        select * from file_message where user_id = #{userId} order by upload_time asc LIMIT 1
+    </select>
+    <delete id="deleteByFolderPath">
+        delete from File_message
+        where file_path in
+        <foreach collection="folderPaths" separator="," open="(" close=")" item="folderPath" >
+            #{folderPath}
+        </foreach>
+    </delete>
+    <delete id="deleteByIdsOrFilePathIds">
+        delete from file_message
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        or file_path_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

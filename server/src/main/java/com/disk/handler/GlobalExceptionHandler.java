@@ -12,6 +12,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
     @ExceptionHandler
     public Result exceptionHandler(BaseException ex){
         log.error("异常信息:{}", ex.getMessage());

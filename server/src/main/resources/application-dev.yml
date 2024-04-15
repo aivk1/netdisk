@@ -16,3 +16,14 @@ disk:
     access-key-secret: cKZsx0wKPXVdK4QWbwPhla4CptnMe5
     endpoint: oss-cn-beijing.aliyuncs.com
     bucket-name: aivk-net-disk
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 3499787573@qq.com
+    password: vnlxtqifclxgcifa
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

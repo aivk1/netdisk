@@ -1,17 +1,15 @@
-package com.disk.vo;
+package com.disk.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVO {
-    private Long id;
-    private String userName;
-    private String token;
-    private Long userFolderId;
+public class FolderDTO {
+    private Long filePathId;
+    private String folderName;
 }

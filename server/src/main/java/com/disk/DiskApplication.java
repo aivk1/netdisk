@@ -17,4 +17,5 @@ public class DiskApplication {
         SpringApplication.run(DiskApplication.class,args);
         log.info("server start");
     }
+
 }
