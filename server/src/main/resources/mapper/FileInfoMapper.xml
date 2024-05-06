@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.disk.mapper.FileInfoMapper">
+    <select id="selectFileList" resultType="com.disk.entity.FileInfo">
+        select * from t_file_info
+        where IDENTIFIER = #{identifier}
+          and FILENAME = #{fileName}
+          and UPLOAD_USER = #{uploadUser}
+          and REF_PROJECT_ID = #{refProjectId}
+        order by ID
+    </select>
+    <select id="selectByRefProjectId" resultType="com.disk.entity.FileInfo">
+        select * from t_file_info
+        where REF_PROJECT_ID = #{refProjectId}
+    </select>
+    <select id="selectFileByIds" resultType="com.disk.entity.FileInfo">
+        select * from t_file_info where ID in
+        <foreach collection="ids" item="id" open="(" separator=";" close=")">
+            #{id}
+        </foreach>
+    </select>
+    <delete id="deleteByIds">
+        delete from t_file_info where id in
+        <foreach collection="ids" item="id"  open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="setFileStatusByIds">
+        update t_file_info
+        set STATUS = #{status}
+        where ID in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

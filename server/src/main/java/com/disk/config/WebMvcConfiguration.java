@@ -21,7 +21,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/file/**")
                 .excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/save");
+                .excludePathPatterns("/user/save")
+                .excludePathPatterns("/file/**");
 
 //        registry.addInterceptor(redisApiInterceptor)
 //                .addPathPatterns("/email");

@@ -161,4 +161,15 @@ public class AliOssUtil {
         }
     }
 
+    public Long getFileSize(String filePath){
+        try {
+            OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+            ObjectMetadata objectMeta = ossClient.getObjectMetadata(bucketName, filePath);
+            Long fileSize = objectMeta.getContentLength();
+            return fileSize;
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
 }

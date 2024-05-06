@@ -15,12 +15,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public Result exceptionHandler(BaseException ex){
-        log.error("异常信息:{}", ex.getMessage());
-        return Result.error(ex.getMessage());
+        String msg = ex.getMessage();
+        log.error("异常信息:{}", msg);
+        return Result.error(msg);
     }
     @ExceptionHandler
     public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
         String message = ex.getMessage();
+        log.info(ex.getMessage());
         if(message.contains("Duplicate entry")){
             String[] split = message.split(" ");
             String username = split[2];

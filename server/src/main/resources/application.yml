@@ -9,7 +9,7 @@ spring:
   datasource:
 
     driver-class-name: ${disk.datasource.driver-class-name}
-    url: jdbc:mysql://${disk.datasource.host}:${disk.datasource.port}/${disk.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${disk.datasource.host}:${disk.datasource.port}/${disk.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: ${disk.datasource.username}
     password: ${disk.datasource.password}
   redis:
@@ -28,15 +28,21 @@ spring:
           auth: ${disk.mail.properties.mail.smtp.auth}
           starttls:
             enable: ${disk.mail.properties.mail.smtp.starttls.enable}
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 mybatis:
   #mapper配置文件
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.sky.entity
+  type-aliases-package: com.disk.entity
   configuration:
     #开启驼峰命名
     map-underscore-to-camel-case: true
 
+
+base:
+  file_path: F:\webDisk\webDisk\file
 
 disk:
   jwt:

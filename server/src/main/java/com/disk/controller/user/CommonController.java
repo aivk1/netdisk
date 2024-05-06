@@ -6,6 +6,7 @@ import com.aliyun.oss.model.ObjectListing;
 import com.disk.dto.EmailDTO;
 import com.disk.dto.VerificationDTO;
 import com.disk.result.Result;
+import com.disk.service.UserService;
 import com.disk.service.VerificationService;
 import com.disk.utils.AliOssUtil;
 import com.disk.utils.EmailUtil;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.disk.entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -27,6 +29,8 @@ public class CommonController {
     private VerificationService verificationService;
     @Autowired
     private AliOssUtil aliOssUtil;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/email")
     public Result getEmail(@RequestBody EmailDTO emailDTO){
@@ -40,21 +44,10 @@ public class CommonController {
         }
         return Result.error("验证失败，验证码错误或未发送验证码");
     }
-    @GetMapping("/downFile/{fileName}")
-    @ResponseBody
-    public ResponseEntity<InputStreamResource> downFile(@PathVariable String fileName){
-        OSSObject ossObject = aliOssUtil.fileDownload(fileName);
-
-        InputStream inputStream  = ossObject.getObjectContent();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-        headers.add("Content-Type", ossObject.getObjectMetadata().getContentType());
-
-        InputStreamResource resource = new InputStreamResource(inputStream);
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(MediaType.parseMediaType(ossObject.getObjectMetadata().getContentType()))
-                .body(resource);
+    @GetMapping("/emailByUserId/{userId}")
+    public Result getEmailByUserId(@PathVariable Long userId){
+        User user = userService.getUserById(userId);
+        verificationService.createVerification(user.getEmail());
+        return Result.success();
     }
 }

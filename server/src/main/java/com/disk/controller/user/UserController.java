@@ -6,23 +6,17 @@ import com.disk.dto.UserLoginDTO;
 import com.disk.dto.UserUpdateDTO;
 import com.disk.entity.FileMessage;
 import com.disk.entity.User;
-import com.disk.mapper.FileMapper;
 import com.disk.properties.JwtProperties;
 import com.disk.result.Result;
-import com.disk.service.FileService;
 import com.disk.service.UserService;
 import com.disk.utils.JwtUtil;
 import com.disk.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 
 @RestController
@@ -32,8 +26,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private FileService fileService;
+//    @Autowired
+//    private FileService fileService;
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -63,12 +57,12 @@ public class UserController {
                 jwtProperties.getUserSecretKey(),
                 jwtProperties.getUserTtl(),
                 claims);
-        FileMessage fileMessage = fileService.selectByUserIdAndUploadTime(user.getId());
+//        FileMessage fileMessage = fileService.selectByUserIdAndUploadTime(user.getId());
         UserVO userVO = UserVO.builder()
                 .userName(user.getUserName())
                 .id(user.getId())
                 .token(token)
-                .userFolderId(fileMessage!=null?fileMessage.getUserId():-1)
+                .userFolderId(null)
                 .build();
         return Result.success(userVO);
 
