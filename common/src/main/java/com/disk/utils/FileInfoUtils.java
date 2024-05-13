@@ -1,5 +1,6 @@
 package com.disk.utils;
 
+import com.disk.context.BaseContext;
 import com.disk.entity.ChunkInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,10 +19,11 @@ public class FileInfoUtils {
      */
     public static String generatePath(String uploadFolder, ChunkInfo chunkInfo) {
         StringBuilder sb = new StringBuilder();
-        sb.append(uploadFolder).
-                append('/').append(String.valueOf(4l))
-                .append('/').append(chunkInfo.getRelativePath())
-                .append('/').append(chunkInfo.getIdentifier());
+        sb.append(uploadFolder)
+//                .append("/").append(BaseContext.getCurrentId())
+                .append('/').append(String.valueOf(4l))
+                .append('/').append(Long.valueOf(chunkInfo.getRelativePath()))
+                .append("/").append(chunkInfo.getIdentifier());
         if(!Files.isWritable(Paths.get(sb.toString()))){
             log.info("路径不存在，新建路径:{}",sb.toString());
             try{

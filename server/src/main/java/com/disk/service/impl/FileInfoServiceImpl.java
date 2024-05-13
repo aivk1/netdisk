@@ -58,8 +58,8 @@ public class FileInfoServiceImpl implements FileInfoService {
         response.setStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
         String fileName = fileInfo.getFileName();
         String file = uploadFolder +
-                File.separator+ "4" +
-                File.separator + fileInfo.getRefProjectId() +
+//                File.separator + BaseContext.getCurrentId()+
+                File.separator + "4" +
                 File.separator + fileInfo.getIdentifier() +
                 File.separator + fileName;
         String folder = uploadFolder +

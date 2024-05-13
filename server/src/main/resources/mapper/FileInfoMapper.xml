@@ -4,10 +4,20 @@
 <mapper namespace="com.disk.mapper.FileInfoMapper">
     <select id="selectFileList" resultType="com.disk.entity.FileInfo">
         select * from t_file_info
-        where IDENTIFIER = #{identifier}
-          and FILENAME = #{fileName}
-          and UPLOAD_USER = #{uploadUser}
-          and REF_PROJECT_ID = #{refProjectId}
+         <where>
+             <if test="#{identifier}!=null">
+                IDENTIFIER=#{identifier}
+             </if>
+             <if test="#{FileName}!=null">
+                 FILENAME=#{FileName}
+             </if>
+             <if test="#{UploadUser}!=null">
+                 UPLOAD_USER=#{UploadUser}
+             </if>
+             <if test="#{refProjectId}!=null">
+                 REF_PROJECT_ID=#{refProjectId}
+             </if>
+         </where>
         order by ID
     </select>
     <select id="selectByRefProjectId" resultType="com.disk.entity.FileInfo">
