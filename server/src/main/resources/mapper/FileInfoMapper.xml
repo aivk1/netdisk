@@ -17,6 +17,10 @@
              <if test="#{refProjectId}!=null">
                  REF_PROJECT_ID=#{refProjectId}
              </if>
+             <if test="#{locations}!=null">
+                 LOCATION = #{location}
+             </if>
+                 and STATUS=1
          </where>
         order by ID
     </select>

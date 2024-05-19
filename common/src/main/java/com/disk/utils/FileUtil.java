@@ -4,6 +4,8 @@ import com.disk.constant.FileTypeConstant;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 @Component
 public class FileUtil
 {
@@ -34,6 +36,20 @@ public class FileUtil
             return FileTypeConstant.VIDEO_TYPE;
         }
         return -1;
+    }
+
+    public static void deleteFileAndParent(String filePath) {
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            File parentDir = file.getParentFile();
+            file.delete();
+            if (parentDir.exists()) {
+                parentDir.delete();
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
     }
 
     private static boolean isImageExtension(String extension){

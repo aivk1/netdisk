@@ -21,4 +21,5 @@ public interface FileInfoMapper {
     Integer deleteByIdentifierAndFileName(FileInfo fileInfo);
     void deleteByIds(@Param("ids")List<Long> ids);
     void setFileStatusByIds(@Param("ids")List<Long> ids, Integer status);
+    
 }
